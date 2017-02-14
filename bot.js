@@ -16,13 +16,14 @@ const api = botBuilder(
 	    console.log(message.text, false, null);
 	    if (getIntentName(originalRequest.body) === 'MedTaking'){
 		if(message.text){
-		    if(message.text.toLowerCase() === 'edarbi' || message.text.toLowerCase() === 'cialis'){
+		    if(message.text.toLowerCase() === 'edarbi' || message.text.toLowerCase() === 'cialis' ||
+		       message.text.toLowerCase() === 'lipitor' || message.text.toLowerCase() === 'hydrocodone'){
 			return 'Yes, you are taking ' + message.text;
 		    } else {
 			return 'No, you are not taking ' + message.text;
 		    }
 		} else {
-		    return 'You are currently taking Edarbi and Cialis';
+		    return 'You are currently taking Edarbi, Cialis, Lipitor and Hydrocodone';
 		}
 	    } else if (getIntentName(originalRequest.body) === 'MedDue'){
 		if(message.text){
@@ -30,23 +31,31 @@ const api = botBuilder(
 			return 'Your ' + message.text + ' is due at 8:00am and 10:00pm';
 		    } else if (message.text.toLowerCase() === 'cialis'){
 			return 'Your ' + message.text + ' is due at 8:00am';
+		    } else if (message.text.toLowerCase() === 'lipitor'){
+			return 'Your ' + message.text + ' is due at 8:00am';
+		    } else if (message.text.toLowerCase() === 'hydrocodone'){
+			return 'Your ' + message.text + ' is due at 8am, 2pm, and 8pm';
 		    } else {
 			return 'I do not show that you are currently taking ' + message.text;
 		    }
 		} else {
-		    return 'Your Edarbi and Cialis are due at 8:00am and your Edarbi is due at 10:00pm';
+		    return 'Your Edarbi, Cialis, Lipitor and Hydrocodone are due at 8am, your Hydrocodone is due again at 2pm and 8pm,  and your Edarbi is due again at 10:00pm';
 		}
 	    } else if (getIntentName(originalRequest.body) === 'MedTaken'){
 		if(message.text){
 		    if(message.text.toLowerCase() === 'edarbi'){
-			return 'Your ' + message.text + ' was last taken at 8:11am';
+			return 'Your ' + message.text + ' was taken at 8:11am';
 		    } else if (message.text.toLowerCase() === 'cialis'){
-			return 'Your ' + message.text + ' was last taken yesterday at 7:57am';
+			return 'Your ' + message.text + ' was taken yesterday at 7:57am';
+		    } else if (message.text.toLowerCase() === 'lipitor'){
+			return 'Your ' + message.text + ' was taken yesterday at 7:58am';
+		    } else if (message.text.toLowerCase() === 'hydrocodone'){
+			return 'Your ' + message.text + ' was last taken at 2:05pm';
 		    } else {
 			return 'I do not show that you are currently taking ' + message.text;
 		    }
 		} else {
-		    return 'Your Edarbi was last taken at 8:11am and your Cialis was last taken yesterday at 7:57am';
+		    return 'Your Edarbi was taken at 8:11am, your Cialis was taken yesterday at 7:57am, your Lipitor was taken yesterday at 7:58am, your Hydrocodone was taken at 2:05pm';
 		}
 	    } else if (getIntentName(originalRequest.body) === 'ExitApp'){
 		// return a JavaScript object to set advanced response params
