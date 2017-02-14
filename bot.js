@@ -13,7 +13,7 @@ const api = botBuilder(
 	function (message, originalRequest) {
 		'use strict';
 	    console.log(originalRequest.body, false, null);
-	    console.log(message.text, false, null);
+	    console.log(message, false, null);
 	    if (getIntentName(originalRequest.body) === 'MedTaking'){
 		if(message.text){
 		    if(message.text.toLowerCase() === 'edarbi' || message.text.toLowerCase() === 'cialis' ||
@@ -56,6 +56,39 @@ const api = botBuilder(
 		    }
 		} else {
 		    return 'Your Edarbi was taken at 8:11am, your Cialis was taken yesterday at 7:57am, your Lipitor was taken yesterday at 7:58am, your Hydrocodone was taken at 2:05pm';
+		}
+	    } else if (getIntentName(originalRequest.body) === 'MedPin'){
+		var my_user = 'unknown';
+		if(message.text){
+		    if(message.text === '1234'){
+			my_user = 'Larry';
+		    } else if (message.text === '9876'){
+			my_user = 'Phil';
+		    } else if (message.text === '2468'){
+			my_user = 'Cliff';
+		    } else {
+			//
+		    }
+		} else {
+		    //
+		}
+		if (my_user === 'unknown'){
+		    return 'Sorry, please try again and refresh your pin number in the TimerCap App if needed';
+		} else {
+		    return {
+			"response": {
+			    "outputSpeech": {
+				"type": "PlainText",
+				"text": "Congratulations " + my_user + ", you are now on the road to better health with TimerCap.  See your Alexa App for Sample Phrases."
+			    },
+			    "card": {
+				"content": "Congratulations " + my_user + ", you are now on the road to better health with TimerCap.  See below for sample phrases.\nWhat medicines am I taking?\nWhen is my {medicine name} due?\nWhen did I last take {medicine name}\nMore at http://www.timercap.com/alexa\n",
+				"title": "alexa_skill_01",
+				"type": "Simple"
+			    },
+			    "shouldEndSession": true
+			}
+		    };
 		}
 	    } else if (getIntentName(originalRequest.body) === 'ExitApp'){
 		// return a JavaScript object to set advanced response params
